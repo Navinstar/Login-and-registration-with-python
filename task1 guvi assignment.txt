@@ -1,0 +1,102 @@
+import re
+def validate_email(email_id):
+  email_pattern=r'\b[A-Za-z]+@[A-Za-z0-9-]\b'
+  if(re.fullmatch(email_pattern,email_id)):
+    print("email is valid")
+  else:
+    print("email is invalid")
+def validate_password(password):
+  password_pattern=r'\b[A-Za-z0-9]\b'
+  if(re.fullmatch(password_pattern,password)):
+    print("password is valid")
+  else:
+    print("password is invalid")
+
+def register():
+  text=open("password.txt","w")
+  text.writelines("navinbalaji96@gmail.com,Navin@123\n")
+  text.writelines("navinstar1996@gmail.com,Navin@456\n")
+  text.close()
+  text=open("password.txt","r")
+  email_id=input("create an email id:")
+  validate_email(email_id)
+  password=input("create a password:")
+  password1=input("confirm the password:")
+  validate_password(password)
+  d=[]
+  f=[]
+  for i in text:
+    a,b=i.split(",")
+    d.append(a)
+    f.append(b)
+    data=dict(zip(d,f))
+  if password!=password1:
+    print("password doesn't match.Restart")
+    print("enter your password again:")
+  else:
+    if len(password)<5:
+      print("password too short,restart")
+      register()
+    elif len(password)>16:
+      print("password is large,restart")
+      register()
+    elif email_id in text:
+      print("email id exists")
+      register()
+    else:
+      db=open("password.txt","a")
+      db.write(email_id+","+password+"\n")
+      print("success")
+
+def access():
+  text=open("password.txt","w")
+  text.writelines("navinbalaji96@gmail.com,Navin@123\n")
+  text.writelines("navinstar1996@gmail.com,Navin@456\n")
+  text.close()
+  text=open("password.txt","r")
+  email_id=input("enter email")
+  password=input("enter password:")
+  d=[]
+  f=[]
+  for i in text:
+    a,b=i.split(",")
+    d.append(a)
+    f.append(b)
+    data=dict(zip(d,f))
+
+    try:
+      if text[email_id]:
+        try:
+          if password==text[email_id]:
+            print("Login success")
+          else:
+            print("email id or password is incorrect")
+            register()  
+        except:
+          print("incorrect password or username")
+      else:
+        print("email id does not exist")
+    except:
+      print("login error")
+
+def main(option):
+  option=input("Login or signup or forgot password")
+  if option=="Login"
+    access()
+  elif option=="signup":
+    register()
+  elif option=="forgot password":
+    known_email=input("enter your email:")
+    text=open("password.txt","w")
+    text.writelines("navinbalaji96@gmail.com,Navin@123\n")
+    text.writelines("navinstar1996@gmail.com,Navin@456\n")
+    text.close()
+    text=open("password.txt","r")
+    for i in text:
+      if known_email in i:
+        n=len(known_email)
+        print(i[n:],"is your password")
+        break
+    else:
+      print("enter the option")
+main()
